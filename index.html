@@ -233,7 +233,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.621);
             backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
@@ -271,31 +271,66 @@
         
         .nav-menu {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.1);
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 41, 59, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 10px 20px;
+            border-radius: 25px;
+            padding: 15px 10px;
             z-index: 90;
             display: flex;
+            flex-direction: column;
             gap: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .nav-item {
-            color: white;
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 30px;
+            padding: 12px;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-            font-weight: 500;
         }
-        
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255, 255, 255, 0.2);
+
+        .nav-item span {
+            position: absolute;
+            right: calc(100% + 10px);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .nav-item span::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 4px solid rgba(0, 0, 0, 0.9);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+
+        .nav-item:hover span {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-5px);
         }
         
         /* Dark mode styles */
@@ -342,10 +377,22 @@
 <body class="bg-gray-50 text-gray-800 transition-colors duration-500">
     <!-- Navigation menu -->
     <div class="nav-menu">
-        <a href="#expertise" class="nav-item">Expertise</a>
-        <a href="#experience" class="nav-item">Expérience</a>
-        <a href="#formation" class="nav-item">Formation</a>
-        <a href="#profil" class="nav-item">Profil</a>
+        <a href="#expertise" class="nav-item" aria-label="Expertise">
+            <i class="fas fa-code"></i>
+            <span>Expertise</span>
+        </a>
+        <a href="#experience" class="nav-item" aria-label="Expérience">
+            <i class="fas fa-briefcase"></i>
+            <span>Expérience</span>
+        </a>
+        <a href="#formation" class="nav-item" aria-label="Formation">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Formation</span>
+        </a>
+        <a href="#profil" class="nav-item" aria-label="Profil">
+            <i class="fas fa-user"></i>
+            <span>Profil</span>
+        </a>
     </div>
     
     <!-- Theme switcher -->
@@ -467,74 +514,62 @@
                         Frameworks & Outils
                     </h4>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        <div class="flip-card h-32">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-blue-50 rounded-lg p-4 flex flex-col items-center justify-center">
-                                    <i class="fab fa-react text-blue-600 text-3xl mb-2"></i>
-                                    <span class="font-medium">React</span>
-                                </div>
-                                <div class="flip-card-back bg-blue-600 text-white rounded-lg">
-                                    <span>Expert</span>
+                        <div class="relative group">
+                            <div class="tech-stack-card bg-blue-50 rounded-lg p-4 flex flex-col items-center justify-center h-32 transition-all duration-300">
+                                <i class="fab fa-react text-4xl mb-2 text-blue-500"></i>
+                                <span class="font-medium">React</span>
+                                <div class="absolute inset-0 bg-blue-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+                                    <span class="text-white font-medium">Expert</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="flip-card h-32">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-green-50 rounded-lg p-4 flex flex-col items-center justify-center">
-                                    <i class="fab fa-vuejs text-green-600 text-3xl mb-2"></i>
-                                    <span class="font-medium">Vue.js</span>
-                                </div>
-                                <div class="flip-card-back bg-green-600 text-white rounded-lg">
-                                    <span>Avancé</span>
+                        <div class="relative group">
+                            <div class="tech-stack-card bg-green-50 rounded-lg p-4 flex flex-col items-center justify-center h-32">
+                                <i class="fab fa-vuejs text-4xl mb-2 text-green-500"></i>
+                                <span class="font-medium">Vue.js</span>
+                                <div class="absolute inset-0 bg-green-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+                                    <span class="text-white font-medium">Avancé</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="flip-card h-32">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-purple-50 rounded-lg p-4 flex flex-col items-center justify-center">
-                                    <i class="fas fa-bolt text-purple-600 text-3xl mb-2"></i>
-                                    <span class="font-medium">Next.js</span>
-                                </div>
-                                <div class="flip-card-back bg-purple-600 text-white rounded-lg">
-                                    <span>Expert</span>
+                        <div class="relative group">
+                            <div class="tech-stack-card bg-gray-200 rounded-lg p-4 flex flex-col items-center justify-center h-32">
+                                <img src="assets/nextjs.svg" alt="Next.js" class="w-16 h-16 mb-2">
+                                <span class="font-medium text-black">Next.js</span>
+                                <div class="absolute inset-0 bg-gray-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+                                    <span class="text-white font-medium">Expert</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="flip-card h-32">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-cyan-50 rounded-lg p-4 flex flex-col items-center justify-center">
-                                    <i class="fas fa-sun text-cyan-600 text-3xl mb-2"></i>
-                                    <span class="font-medium">Nuxt.js</span>
-                                </div>
-                                <div class="flip-card-back bg-cyan-600 text-white rounded-lg">
-                                    <span>Avancé</span>
+                        <div class="relative group">
+                            <div class="tech-stack-card bg-green-50 rounded-lg p-4 flex flex-col items-center justify-center h-32">
+                                <img src="assets/nuxt.png" alt="Nuxt.js" class="w-16 h-16 mb-2">
+                                <span class="font-medium">Nuxt.js</span>
+                                <div class="absolute inset-0 bg-emerald-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+                                    <span class="text-white font-medium">Avancé</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="flip-card h-32">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-yellow-50 rounded-lg p-4 flex flex-col items-center justify-center">
-                                    <i class="fab fa-node-js text-yellow-600 text-3xl mb-2"></i>
-                                    <span class="font-medium">Express</span>
-                                </div>
-                                <div class="flip-card-back bg-yellow-600 text-white rounded-lg">
-                                    <span>Expert</span>
+                        <div class="relative group">
+                            <div class="tech-stack-card bg-orange-50 rounded-lg p-4 flex flex-col items-center justify-center h-32">
+                                <i class="fab fa-node-js text-4xl mb-2 text-orange-500"></i>
+                                <span class="font-medium">Express</span>
+                                <div class="absolute inset-0 bg-orange-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+                                    <span class="text-white font-medium">Expert</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="flip-card h-32">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-red-50 rounded-lg p-4 flex flex-col items-center justify-center">
-                                    <i class="fas fa-feather text-red-600 text-3xl mb-2"></i>
-                                    <span class="font-medium">NestJS</span>
-                                </div>
-                                <div class="flip-card-back bg-red-600 text-white rounded-lg">
-                                    <span>Avancé</span>
+                        <div class="relative group">
+                            <div class="tech-stack-card bg-red-50 rounded-lg p-4 flex flex-col items-center justify-center h-32">
+                                <img src="assets/nestjs.svg" alt="NestJS" class="w-16 h-16 mb-2">
+                                <span class="font-medium">NestJS</span>
+                                <div class="absolute inset-0 bg-red-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+                                    <span class="text-white font-medium">Avancé</span>
                                 </div>
                             </div>
                         </div>
@@ -840,12 +875,18 @@
         // Déclencher l'animation des compétences après un délai
         setTimeout(animateSkillBars, 1000);
 
-        // Effet de parallaxe simple pour l'en-tête
+        // Modification de l'effet de parallaxe
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const header = document.querySelector('header');
             if (header) {
-                header.style.transform = `translateY(${scrolled * 0.3}px)`;
+                // Limite la translation vers le bas
+                const translateY = Math.min(scrolled * 0.2, 100);
+                header.style.transform = `translateY(${translateY}px)`;
+                
+                // Ajout d'un effet de fade
+                const opacity = 1 - (scrolled * 0.002);
+                header.style.opacity = Math.max(opacity, 0);
             }
         });
 
